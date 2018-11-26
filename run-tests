@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+echo "Save vagrant SSH config"
+vagrant ssh-config > .vagrant/ssh-config
+
+echo "Run testinfra tests"
+testinfra --hosts=default --ssh-config=.vagrant/ssh-config tests/test_app.py

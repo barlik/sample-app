@@ -1,0 +1,37 @@
+- hosts: all
+  tasks:
+    - name: Ensure Docker is installed
+      package:
+        name: docker
+        state: present
+
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+
+    - name: Ensure python-pip is installed
+      package:
+        name: python-pip
+        state: present
+
+    - name: Ensure docker-py python package is installed
+      pip:
+        name: docker-py
+
+    - name: Build Docker image for myapp micro service
+      docker_image:
+        name: myapp
+        tag: latest
+        path: /vagrant/myapp
+        state: build
+
+    - name: Run myapp micro service as a Docker container
+      docker_container:
+        name: myapp
+        image: myapp:latest
+        state: started
+        ports: "80:80"
+
+    - debug:
+        msg: "Micro service available at: http://{{ ansible_eth1.ipv4.address }}/"
