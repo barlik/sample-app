@@ -30,7 +30,7 @@ Tests make use of [testinfra](https://testinfra.readthedocs.io/en/latest/index.h
 
 To install testinfra run:
 
-    pip install --user testinfra
+    pip install --user testinfra paramiko
 
 To run tests against deployed docker container:
 
